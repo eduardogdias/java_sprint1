@@ -1,16 +1,26 @@
 package br.com.fiap.sprint1.entity;
 
+import java.util.List;
+
 import br.com.fiap.sprint1.dto.PatioDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="TB_PATIO")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Patio {
 	
 	@Id
@@ -24,46 +34,24 @@ public class Patio {
     @NotBlank(message = "O endereço é obrigatório")
     @Size(min = 5, max = 255, message = "O endereço deve ter entre 5 e 255 caracteres")
     private String endereco;
-	
-	public Patio () {		
-	}
-	
-	public Patio(Integer id, String nome, String endereco) {
-		this.id = id;
-		this.nome = nome;
-		this.endereco = endereco;
-	}
 
+    @OneToMany(mappedBy = "patio")
+    private List<Zona> zonas;
 	
+    
+    
 	//construtor do DTO
 	public Patio(PatioDTO patioDTO) {
 		this.nome = patioDTO.getNome();
 		this.endereco = patioDTO.getEndereco();
 	}
-	
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
+
+	//contrutor para definir as tabelas do banco (sem coluna para as zonas)
+	public Patio(Integer id, String nome, String endereco) {
 		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-
 	
 }
