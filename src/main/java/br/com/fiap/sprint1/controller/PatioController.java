@@ -1,5 +1,8 @@
 package br.com.fiap.sprint1.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -65,12 +68,16 @@ public class PatioController {
 
     
     @DeleteMapping("/{id}")
-    public ResponseEntity deletarPatio(@PathVariable Integer id) {
+    public ResponseEntity<Map<String, String>> deletarPatio(@PathVariable Integer id) {
         boolean deleted = patioService.deletarPatio(id);  
+        Map<String, String> resposta = new HashMap<>();
+
         if (deleted) {
-            return ResponseEntity.ok("Pátio com ID " + id + " deletado com sucesso.");
+            resposta.put("mensagem", "Pátio com ID " + id + " deletado com sucesso.");
+            return ResponseEntity.ok(resposta);
         } else {
             throw new EntityNotFoundException();
         }
     }
+
 }
