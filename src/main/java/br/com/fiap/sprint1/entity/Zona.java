@@ -28,12 +28,13 @@ public class Zona {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_zona")
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(name = "tipo_zona", nullable = false)
     private String tipo;
 
-    @Column(name = "qtd_vaga", nullable = false)
+    @Column(name = "qtd_vaga_zona", nullable = false)
     private Integer qtdVaga;
 
     @ManyToOne(fetch = FetchType.LAZY)

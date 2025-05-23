@@ -27,15 +27,16 @@ public class Sensor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_patio")
     private Integer id;
 
-    @Column(nullable = false, length = 50)
+    @Column(name = "localizacao_sensor", nullable = false, length = 50)
     private String localizacao;
 
-    @Column(nullable = false)
+    @Column(name = "data_sensor", nullable = false)
     private LocalDate data;
 
-    @Column(nullable = false)
+    @Column(name = "hora_sensor", nullable = false)
     private LocalTime hora;
     
     @OneToMany(mappedBy = "sensor", fetch = FetchType.LAZY)

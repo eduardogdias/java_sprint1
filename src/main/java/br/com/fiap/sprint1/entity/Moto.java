@@ -25,17 +25,19 @@ public class Moto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_moto")
 	private Integer id;
 	
-	@Column(length = 7)
+	@Column(name = "placa_moto", length = 7)
 	private String placa; //7 caracteres
 	
-	@Column(length = 17)
+	@Column(name = "chassi_moto", length = 17)
 	private String chassi;  //17 caracteres
 	
+	@Column(name = "marca_moto")
 	private String marca;
 	
-	@Column(nullable = false, length = 20)
+	@Column(name = "modelo_moto", nullable = false, length = 20)
 	private String modelo;
 	
 	@OneToMany(mappedBy = "moto", fetch = FetchType.LAZY)

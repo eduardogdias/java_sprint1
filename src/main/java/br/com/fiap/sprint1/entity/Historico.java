@@ -25,9 +25,10 @@ public class Historico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_hist")
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(name = "posicao_hist", nullable = false)
     private int posicao;
 
     @ManyToOne(fetch = FetchType.LAZY)

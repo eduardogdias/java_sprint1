@@ -24,12 +24,13 @@ public class Patio {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_patio") 
 	private Integer id;
 
-	@Column(nullable = false)
+	@Column(name = "nome_patio", nullable = false)
     private String nome;
 
-	@Column(nullable = false)
+	@Column(name = "endereco_patio", nullable = false)
     private String endereco;
 
     @OneToMany(mappedBy = "patio", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
