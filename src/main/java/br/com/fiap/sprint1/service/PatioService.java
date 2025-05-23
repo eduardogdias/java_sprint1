@@ -6,7 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.fiap.sprint1.dto.PatioDTO;
+import br.com.fiap.sprint1.dto.patio.PatioRequestDTO;
+import br.com.fiap.sprint1.dto.patio.PatioResponseDTO;
 import br.com.fiap.sprint1.entity.Patio;
 import br.com.fiap.sprint1.repository.PatioRepository;
 import jakarta.transaction.Transactional;
@@ -17,48 +18,60 @@ public class PatioService {
     @Autowired
     private PatioRepository patioRepository;
 
-    // listar
-    public List<Patio> listarPatios() {
-        return patioRepository.findAll();
+    //listar
+    public List<PatioResponseDTO> listarPatios() {
+        return patioRepository.findAll()
+                .stream()
+                .map(PatioResponseDTO::new)
+                .toList();
     }
 
-    // buscar
-    public Patio buscarPatioPorId(Integer id) {
-        Optional<Patio> patio = patioRepository.findById(id);  // optional -> retorna o patio se encontrado, ou null
-        return patio.orElse(null);  
+    
+    //buscar
+    public PatioResponseDTO buscarPatioPorId(Integer id) {
+        return patioRepository.findById(id)
+                .map(PatioResponseDTO::new) //se o objeto foi encontrado, transforma ele em um PatioResponseDTO (converte a entidade para um DTO de resposta)
+                .orElse(null); //se nao for encontrado retona null
     }
 
-    // criar
-    @Transactional          // @Transactional -> faz um rollback na alteracoes se o metodo gerar excecao 
-    public Patio criarPatio(PatioDTO patioDTO) {
+    
+    //criar
+    @Transactional   // @Transactional -> faz um rollback na alteracoes se o metodo gerar excecao 
+    public PatioResponseDTO criarPatio(PatioRequestDTO request) {
         Patio patio = new Patio();
-        patio.setNome(patioDTO.getNome());
-        patio.setEndereco(patioDTO.getEndereco());
-        return patioRepository.save(patio);
+        patio.setNome(request.getNome());
+        patio.setEndereco(request.getEndereco());
+        Patio salvo = patioRepository.save(patio);
+        return new PatioResponseDTO(salvo);
     }
 
-    // atualizar
+    
+    //atualizar
     @Transactional
-    public Patio atualizarPatio(Integer id, PatioDTO patioDTO) {
-        Patio patio = buscarPatioPorId(id);
-        if (patio != null) {
-            patio.setNome(patioDTO.getNome());
-            patio.setEndereco(patioDTO.getEndereco());
-            return patioRepository.save(patio);
+    public PatioResponseDTO atualizarPatio(Integer id, PatioRequestDTO request) {
+        Optional<Patio> optional = patioRepository.findById(id); // optional -> retorna o patio se encontrado, ou null
+        if (optional.isPresent()) {
+            Patio patio = optional.get();
+            patio.setNome(request.getNome());
+            patio.setEndereco(request.getEndereco());
+            Patio atualizado = patioRepository.save(patio);
+            return new PatioResponseDTO(atualizado);
         }
-        return null; 
+        return null;
     }
 
-    // deletar
+    
+    //deletar
     @Transactional
     public boolean deletarPatio(Integer id) {
-        Patio patio = buscarPatioPorId(id);
-        if (patio != null) {
-            patioRepository.delete(patio);
-            return true; 
+        Optional<Patio> patio = patioRepository.findById(id);
+        if (patio.isPresent()) {
+            patioRepository.delete(patio.get());
+            return true;
         }
-        return false; 
+        return false;
     }
 }
+
 
 

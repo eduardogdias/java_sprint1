@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fiap.sprint1.dto.PatioDTO;
+import br.com.fiap.sprint1.dto.patio.PatioRequestDTO;
+import br.com.fiap.sprint1.dto.patio.PatioResponseDTO;
 import br.com.fiap.sprint1.entity.Patio;
 import br.com.fiap.sprint1.repository.PatioRepository;
 import br.com.fiap.sprint1.service.PatioService;
@@ -28,56 +30,46 @@ import jakarta.validation.Valid;
 public class PatioController {
 
     @Autowired
-    private PatioService patioService;  
-    
-    
+    private PatioService patioService;
+
     @GetMapping
-    public ResponseEntity listarPatios() {
-        var allPatios = patioService.listarPatios();  
-        return ResponseEntity.ok(allPatios);
+    public ResponseEntity listar() {
+        return ResponseEntity.ok(patioService.listarPatios());
     }
 
-    
     @GetMapping("/{id}")
-    public ResponseEntity buscarPatioPorId(@PathVariable Integer id) {
-        Patio patio = patioService.buscarPatioPorId(id); 
-        if (patio != null) {
-            return ResponseEntity.ok(patio);
-        } else {
-        	throw new EntityNotFoundException(); //se nao encontrar dados, lança a excecao que sera capturada pela classe de exception
-        }
-    }
-
-    
-    @PostMapping
-    public ResponseEntity criarPatio(@RequestBody @Valid PatioDTO data) {
-        Patio patio = patioService.criarPatio(data);  
-        return ResponseEntity.status(201).body(patio); // 201 -> Patio criado
-    }
-
-    
-    @PutMapping("/{id}")
-    public ResponseEntity atualizarPatio(@PathVariable Integer id, @RequestBody @Valid PatioDTO data) {
-        Patio patio = patioService.atualizarPatio(id, data); 
-        if (patio != null) {
-            return ResponseEntity.ok(patio);
-        } else {
-        	throw new EntityNotFoundException();
-        }
-    }
-
-    
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, String>> deletarPatio(@PathVariable Integer id) {
-        boolean deleted = patioService.deletarPatio(id);  
-        Map<String, String> resposta = new HashMap<>();
-
-        if (deleted) {
-            resposta.put("mensagem", "Pátio com ID " + id + " deletado com sucesso.");
-            return ResponseEntity.ok(resposta);
+    public ResponseEntity buscarPorId(@PathVariable Integer id) {
+        PatioResponseDTO dto = patioService.buscarPatioPorId(id);
+        if (dto != null) {
+            return ResponseEntity.ok(dto);
         } else {
             throw new EntityNotFoundException();
         }
     }
 
+    @PostMapping
+    public ResponseEntity criar(@RequestBody @Valid PatioRequestDTO request) {
+        PatioResponseDTO dto = patioService.criarPatio(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity atualizar(@PathVariable Integer id, @RequestBody @Valid PatioRequestDTO request) {
+        PatioResponseDTO dto = patioService.atualizarPatio(id, request);
+        if (dto != null) {
+            return ResponseEntity.ok(dto);
+        } else {
+            throw new EntityNotFoundException();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deletar(@PathVariable Integer id) {
+        boolean deleted = patioService.deletarPatio(id);
+        if (deleted) {
+            return ResponseEntity.ok(Map.of("mensagem", "Pátio com ID " + id + " deletado com sucesso."));
+        } else {
+            throw new EntityNotFoundException();
+        }
+    }
 }
