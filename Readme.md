@@ -21,7 +21,7 @@ Com isso, é possível acompanhar o histórico de movimentação de cada moto, s
 ---
 
 ## Especificação do projeto:
-![](images\springinitializr.png)
+![](images/springinitializr.png)
 
 **Dependências:**
 - Spring Web: Por se tratar de uma API Rest;
@@ -32,7 +32,7 @@ Com isso, é possível acompanhar o histórico de movimentação de cada moto, s
 - Validation: Validações com Bean Validation usadas nos DTOs.
 
 **Estrutura do Banco de Dados:**
-![](images\banco.png)
+![](images/banco.png)
 
 **Entidades:** Patio, Zona, Moto, Sensor, Historico
 
@@ -109,36 +109,36 @@ Cada histórico é registrado por um único sensor.
 ---
 
 ## Utilização de DTOs e Bean Validation
-![alt text](images\dtos.png)
+![alt text](images/dtos.png)
 
 Os DTOs foram utilizados para validar as request (RequestDTO) e enviar responses (ResponseDTO) personalizadas (ocultando ou incluindo automaticamente dados).
 
 **Exemplo 1:**
 
 Sem o PatioResponseDTO:
-![](images\semDTO.png)
+![](images/semDTO.png)
 
 Com o PatioResponseDTO:
-![](images\comDTO.png)
+![](images/comDTO.png)
 
 **Exemplo 2:**
 
 Note que foram passados apenas: tipo, qtdVaga e patioId no body, e a response já mostra o pátio que essa zona está e o nome do mesmo.
-![](images\dtoZonaPost.png)
+![](images/dtoZonaPost.png)
 
 A mesma coisa acontece com o GET, pois a ZonaResponseDTO foi configurada para ter esse retorno personalizado.
-![](images\dtoZonaGet.png)
+![](images/dtoZonaGet.png)
 
 **Exemplo 3:**
 
 Ao cadastrar uma moto, a marca é cadastrada automaticamente de acordo o modelo da mesma. Novamente utilizando DTOs para isso.
-![](images\dtoMotoPost1.png)
+![](images/dtoMotoPost1.png)
 
 
 **Exemplo 4:**
 
 Ainda sobre os DTOs, no caso das motos optamos por deixar a “placa” e “chassi” como opcionais. Pois uma moto pode chegar sem placa ou com o número de chassi raspado. Só que não é permitido cadastrar uma moto sem nenhuma das duas informações.
-![](images\dtoMotoPost2.png)
+![](images/dtoMotoPost2.png)
 
 --- 
 
@@ -165,7 +165,8 @@ private List<Zona> zonas;
 
 ## Exemplos de Requisições
 
-Acesse a Collection do Postman com as requisições já monstadas: [collection](bit.ly/43sTZ4N)
+Acesse a Collection do Postman com as requisições já monstadas: 
+``bit.ly/43sTZ4N``
 - Exemplo de Request **Patio**:
 ````json
 {
@@ -218,8 +219,8 @@ Acesse a Collection do Postman com as requisições já monstadas: [collection](
 
 Em todas tabelas é possível fazer uma busca por ID (path params).
 Também adicionamos a busca com Query Params, que foram adicionados para na listagem de motos. Sendo possível filtrar a pesquisa por **modelo** ou **marca** da moto.
-![](images\queryParamsModelo.png)
-![](images\queryParamsMarca.png)
+![](images/queryParamsModelo.png)
+![](images/queryParamsMarca.png)
 
 --- 
 
@@ -227,8 +228,8 @@ Também adicionamos a busca com Query Params, que foram adicionados para na list
 
 Foi criada uma classe responsável por receber e montar um retorno personalizado em caso de responses ``404`` (Not Found) e ``400`` (Bad Request).
 
-![](images\exception1.png)
-![](images\exception2.png)
+![](images/exception1.png)
+![](images/exception2.png)
 
 ---
 
@@ -241,7 +242,8 @@ Foi criada uma classe responsável por receber e montar um retorno personalizado
 
 **Observações:**
 1. Não é necessário passar suas crenciais do banco, pois o projeto utiliza o H2;
-2. Acesse a Collection do Postman: [collection](bit.ly/43sTZ4N)
+2. Acesse a Collection do Postman com as requisições prontas: 
+``bit.ly/43sTZ4N``
 2. Para criar a **Zona**, ela deve estar associada a um **Patio**;
 3. Para criar um **Historico**, é necessário criar: **Moto**, **Zona** e **Sensor**.
 
@@ -249,4 +251,4 @@ Foi criada uma classe responsável por receber e montar um retorno personalizado
 
 ## Visão Geral do Projeto
 
-![](images\projeto.png)
+![](images/projeto.png)
