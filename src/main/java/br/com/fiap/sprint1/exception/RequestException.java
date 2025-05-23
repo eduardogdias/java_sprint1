@@ -25,5 +25,14 @@ public class RequestException {
 	    resposta.put("mensagem", mensagem);
 	    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resposta); //404
 	}
+	
+	
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<Map<String, String>> tratarIllegalArgument(IllegalArgumentException ex) {
+	    Map<String, String> resposta = new HashMap<>();
+	    resposta.put("mensagem", ex.getMessage());
+	    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resposta); // 400
+	}
+
 }
 

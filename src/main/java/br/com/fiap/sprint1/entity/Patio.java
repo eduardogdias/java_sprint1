@@ -3,6 +3,7 @@ package br.com.fiap.sprint1.entity;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -25,8 +26,10 @@ public class Patio {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@Column(nullable = false)
     private String nome;
 
+	@Column(nullable = false)
     private String endereco;
 
     @OneToMany(mappedBy = "patio", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
