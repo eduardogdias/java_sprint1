@@ -24,12 +24,12 @@ Com isso, é possível acompanhar o histórico de movimentação de cada moto, s
 ![](images\springinitializr.png)
 
 **Dependências:**
-- Spring Web: Por se tratar de uma API Rest 
-- Spring Boot DevTools: Recursos que ajudam na produtividade
-- Spring Data JPA: Acessar e manipular bancos de dados
-- H2 Database: Banco de dados em memória
-- Lombok: Gerar automaticamente códigos repetitivos (mais otimizado)
-- Validation: Validações com Bean Validation usadas nos DTOs
+- Spring Web: Por se tratar de uma API Rest;
+- Spring Boot DevTools: Recursos que ajudam na produtividade;
+- Spring Data JPA: Acessar e manipular bancos de dados;
+- H2 Database: Banco de dados em memória;
+- Lombok: Gerar automaticamente códigos repetitivos (mais otimizado);
+- Validation: Validações com Bean Validation usadas nos DTOs.
 
 **Estrutura do Banco de Dados:**
 ![](images\banco.png)
