@@ -1,8 +1,5 @@
 package br.com.fiap.sprint1.entity;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +7,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,26 +16,30 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "TB_SENSOR")
+@Table(name = "TB_HISTORICO")
 @Getter
-@Setter 
-@NoArgsConstructor 
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-public class Sensor {
+public class Historico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 50)
-    private String localizacao;
-
     @Column(nullable = false)
-    private LocalDate data;
+    private int posicao;
 
-    @Column(nullable = false)
-    private LocalTime hora;
-    
-    @OneToMany(mappedBy = "sensor", fetch = FetchType.LAZY)
-	private List<Historico> historicos;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_moto", nullable = false)
+    private Moto moto;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_zona", nullable = false)
+    private Zona zona;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_sensor", nullable = false)
+    private Sensor sensor;
 }
+

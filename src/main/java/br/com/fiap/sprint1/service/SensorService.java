@@ -1,7 +1,6 @@
 package br.com.fiap.sprint1.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,41 +19,47 @@ public class SensorService {
     private SensorRepository sensorRepository;
 
     
-    // GET
+    //GET
+    @Transactional
     public List<SensorResponseDTO> listar() {
-        return sensorRepository.findAll()
-                .stream()
+        return sensorRepository.findAll().stream()
                 .map(SensorResponseDTO::new)
-                .collect(Collectors.toList());
-    }
-    
-    // GET por ID
-    public SensorResponseDTO buscarPorId(Integer id) {
-        return sensorRepository.findById(id)
-                .map(SensorResponseDTO::new)
-                .orElseThrow(() -> new EntityNotFoundException("Sensor não encontrado"));
+                .toList();
     }
 
-    // POST
+    //GET por ID
+    @Transactional
+    public SensorResponseDTO buscarPorId(Integer id) {
+        Sensor sensor = sensorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Sensor não encontrado"));
+        return new SensorResponseDTO(sensor);
+    }
+
+    //POST
     @Transactional
     public SensorResponseDTO criar(SensorRequestDTO dto) {
         Sensor sensor = new Sensor();
         sensor.setLocalizacao(dto.getLocalizacao());
+        sensor.setData(dto.getData());
+        sensor.setHora(dto.getHora());
+
         return new SensorResponseDTO(sensorRepository.save(sensor));
     }
     
-    
-    // PUT
+    //PUT
     @Transactional
     public SensorResponseDTO atualizar(Integer id, SensorRequestDTO dto) {
         Sensor sensor = sensorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Sensor não encontrado"));
+
         sensor.setLocalizacao(dto.getLocalizacao());
+        sensor.setData(dto.getData());
+        sensor.setHora(dto.getHora());
+
         return new SensorResponseDTO(sensorRepository.save(sensor));
     }
 
-    
-    // DELETE
+    //DELETE
     @Transactional
     public void deletar(Integer id) {
         Sensor sensor = sensorRepository.findById(id)

@@ -1,5 +1,7 @@
 package br.com.fiap.sprint1.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -8,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -37,5 +40,8 @@ public class Zona {
     @JoinColumn(name = "fk_patio", nullable = false) // a zona deve um ter patio para ser instanciada
     @NotNull(message = "O pátio da zona é obrigatório")
     private Patio patio;
+    
+    @OneToMany(mappedBy = "zona", fetch = FetchType.LAZY)
+	private List<Historico> historicos;
 
 }
