@@ -246,7 +246,7 @@ Foi criada uma classe responsável por receber e montar um retorno personalizado
 1. Não é necessário passar suas crenciais do banco, pois o projeto utiliza o H2;
 2. Você pode importar a Collection do Postman através desse link (as requisições já estão prontas):
 ``
-https://www.postman.com/altimetry-astronaut-50480178/workspace/my-workspace/collection/38977802-fcc00167-f9e8-49fd-b45d-4c48548575d1?action=share&creator=38977802
+(Acesse a Collection)[https://www.postman.com/altimetry-astronaut-50480178/workspace/my-workspace/collection/38977802-fcc00167-f9e8-49fd-b45d-4c48548575d1?action=share&creator=38977802]
 ``
 3. Para criar a **Zona**, ela deve estar associada a um **Patio**;
 4. Para criar um **Historico**, é necessário criar: **Moto**, **Zona** e **Sensor**.
