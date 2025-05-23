@@ -1,0 +1,64 @@
+package br.com.fiap.sprint1.service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.com.fiap.sprint1.dto.sensor.SensorRequestDTO;
+import br.com.fiap.sprint1.dto.sensor.SensorResponseDTO;
+import br.com.fiap.sprint1.entity.Sensor;
+import br.com.fiap.sprint1.repository.SensorRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+
+@Service
+public class SensorService {
+
+    @Autowired
+    private SensorRepository sensorRepository;
+
+    
+    // GET
+    public List<SensorResponseDTO> listar() {
+        return sensorRepository.findAll()
+                .stream()
+                .map(SensorResponseDTO::new)
+                .collect(Collectors.toList());
+    }
+    
+    // GET por ID
+    public SensorResponseDTO buscarPorId(Integer id) {
+        return sensorRepository.findById(id)
+                .map(SensorResponseDTO::new)
+                .orElseThrow(() -> new EntityNotFoundException("Sensor não encontrado"));
+    }
+
+    // POST
+    @Transactional
+    public SensorResponseDTO criar(SensorRequestDTO dto) {
+        Sensor sensor = new Sensor();
+        sensor.setLocalizacao(dto.getLocalizacao());
+        return new SensorResponseDTO(sensorRepository.save(sensor));
+    }
+    
+    
+    // PUT
+    @Transactional
+    public SensorResponseDTO atualizar(Integer id, SensorRequestDTO dto) {
+        Sensor sensor = sensorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Sensor não encontrado"));
+        sensor.setLocalizacao(dto.getLocalizacao());
+        return new SensorResponseDTO(sensorRepository.save(sensor));
+    }
+
+    
+    // DELETE
+    @Transactional
+    public void deletar(Integer id) {
+        Sensor sensor = sensorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Sensor não encontrado"));
+        sensorRepository.delete(sensor);
+    }
+}
