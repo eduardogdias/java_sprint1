@@ -275,3 +275,30 @@ Foi criada uma classe responsável por receber e montar um retorno personalizado
 ---
 
 ## Instruções para Executar o Projeto (DEVOPS TOOLS And CLOUD COMPUTING)
+
+1. No Azure CLI, vamos criar e configurar nossa VM. Digite esses 3 comandos no terminal:
+````sh
+git clone https://github.com/eduardogdias/java_sprint1.git
+chmod 744 java_sprint1/criar-vm-sprint1-git-nano-docker.sh
+./java_sprint1/criar-vm-sprint1-git-nano-docker.sh
+````
+
+2. Faça uma conexão SSH com sua VM, digite 'yes' para confiar, e coloque sua senha após isso:
+````sh
+ssh admlnx@IpVM
+````
+
+3. O Git, Nano e Docker já vieram instalados e configurados pelo script de criação da VM:
+
+![](images/vmInstalacoes.png)
+
+4. Clone o projeto dentro da VM:
+````sh
+git clone https://github.com/eduardogdias/java_sprint1.git
+cd java_sprint1
+````
+
+5. Crie a rede para agrupar os dois containers que serão usados:
+````sh
+docker network create sprint1-network
+````

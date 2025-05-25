@@ -1,0 +1,55 @@
+FROM alpine/curl
+
+RUN adduser -D aluno-insert
+USER aluno-insert
+
+ENTRYPOINT ["/bin/sh", "-c", "\
+  echo 'Aguardando a API subir...' && sleep 5 && \
+
+  echo 'Inserindo PATIOS...' && echo && \
+  curl -X POST container-api:8080/patios -H 'Content-Type: application/json' -d '{\"nome\":\"Mottu Center\",\"endereco\":\"Av. Butantan, 554\"}' && \
+  curl -X POST container-api:8080/patios -H 'Content-Type: application/json' -d '{\"nome\":\"Mottu Space\",\"endereco\":\"Av. Morumbi, 100\"}' && \
+  curl -X POST container-api:8080/patios -H 'Content-Type: application/json' -d '{\"nome\":\"Pátio Oeste\",\"endereco\":\"Rua da Liberdade, 22\"}' && \
+  curl -X POST container-api:8080/patios -H 'Content-Type: application/json' -d '{\"nome\":\"Mottu Leste\",\"endereco\":\"Av. Paulista, 1500\"}' && \
+  curl -X POST container-api:8080/patios -H 'Content-Type: application/json' -d '{\"nome\":\"Centro Sul\",\"endereco\":\"Rua das Flores, 99\"}' && \
+
+  echo ' ' && echo ' ' && \
+  echo 'Inserindo ZONAS...' && echo && \
+  curl -X POST container-api:8080/zonas -H 'Content-Type: application/json' -d '{\"tipo\":\"Reparo\",\"qtdVaga\":5,\"patioId\":1}' && \
+  curl -X POST container-api:8080/zonas -H 'Content-Type: application/json' -d '{\"tipo\":\"Lavagem\",\"qtdVaga\":4,\"patioId\":2}' && \
+  curl -X POST container-api:8080/zonas -H 'Content-Type: application/json' -d '{\"tipo\":\"Estacionamento\",\"qtdVaga\":10,\"patioId\":3}' && \
+  curl -X POST container-api:8080/zonas -H 'Content-Type: application/json' -d '{\"tipo\":\"Reparo\",\"qtdVaga\":6,\"patioId\":4}' && \
+  curl -X POST container-api:8080/zonas -H 'Content-Type: application/json' -d '{\"tipo\":\"Lavagem\",\"qtdVaga\":3,\"patioId\":5}' && \
+
+  echo ' ' && echo ' ' && \
+  echo 'Inserindo MOTOS...' && echo && \
+  curl -X POST container-api:8080/motos -H 'Content-Type: application/json' -d '{\"placa\":\"ABC1234\",\"chassi\":\"1HGCM82633A123456\",\"modelo\":\"Pop\"}' && \
+  curl -X POST container-api:8080/motos -H 'Content-Type: application/json' -d '{\"placa\":\"DEF5678\",\"chassi\":\"JH4KA8260MC000123\",\"modelo\":\"E\"}' && \
+  curl -X POST container-api:8080/motos -H 'Content-Type: application/json' -d '{\"placa\":\"GHI9012\",\"chassi\":\"3FAHP0HA6AR123456\",\"modelo\":\"Sport\"}' && \
+  curl -X POST container-api:8080/motos -H 'Content-Type: application/json' -d '{\"placa\":\"JKL3456\",\"chassi\":\"5YJSA1E23HF000789\",\"modelo\":\"Pop\"}' && \
+  curl -X POST container-api:8080/motos -H 'Content-Type: application/json' -d '{\"placa\":\"MNO7890\",\"chassi\":\"1NXBR32E54Z256789\",\"modelo\":\"E\"}' && \
+
+  echo ' ' && echo ' ' && \
+  echo 'Inserindo SENSORES...' && echo && \
+  curl -X POST container-api:8080/sensores -H 'Content-Type: application/json' -d '{\"localizacao\":\"Entrada principal\",\"data\":\"2025-05-24\",\"hora\":\"08:30\"}' && \
+  curl -X POST container-api:8080/sensores -H 'Content-Type: application/json' -d '{\"localizacao\":\"Saída lateral\",\"data\":\"2025-05-23\",\"hora\":\"10:15\"}' && \
+  curl -X POST container-api:8080/sensores -H 'Content-Type: application/json' -d '{\"localizacao\":\"Estacionamento A\",\"data\":\"2025-05-22\",\"hora\":\"12:45\"}' && \
+  curl -X POST container-api:8080/sensores -H 'Content-Type: application/json' -d '{\"localizacao\":\"Corredor 3\",\"data\":\"2025-05-21\",\"hora\":\"14:00\"}' && \
+  curl -X POST container-api:8080/sensores -H 'Content-Type: application/json' -d '{\"localizacao\":\"Oficina\",\"data\":\"2025-05-20\",\"hora\":\"16:30\"}' && \
+
+  echo ' ' && echo ' ' && \
+  echo 'Inserindo HISTORICOS...' && echo && \
+  curl -X POST container-api:8080/historicos -H 'Content-Type: application/json' -d '{\"posicao\":1,\"motoId\":1,\"zonaId\":1,\"sensorId\":1}' && \
+  curl -X POST container-api:8080/historicos -H 'Content-Type: application/json' -d '{\"posicao\":2,\"motoId\":2,\"zonaId\":2,\"sensorId\":2}' && \
+  curl -X POST container-api:8080/historicos -H 'Content-Type: application/json' -d '{\"posicao\":3,\"motoId\":3,\"zonaId\":3,\"sensorId\":3}' && \
+  curl -X POST container-api:8080/historicos -H 'Content-Type: application/json' -d '{\"posicao\":4,\"motoId\":4,\"zonaId\":4,\"sensorId\":4}' && \
+  curl -X POST container-api:8080/historicos -H 'Content-Type: application/json' -d '{\"posicao\":5,\"motoId\":5,\"zonaId\":5,\"sensorId\":5}' && \
+
+  echo ' ' && echo ' ' && \
+  echo 'Realizando GETs para validação...' && echo && \
+  curl container-api:8080/patios && echo && \
+  curl container-api:8080/zonas && echo && \
+  curl container-api:8080/motos && echo && \
+  curl container-api:8080/sensores && echo && \
+  curl container-api:8080/historicos && echo && \
+  echo ' ' && echo 'Finalizado com sucesso.'"]
