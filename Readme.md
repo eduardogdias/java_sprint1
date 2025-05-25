@@ -247,14 +247,8 @@ Foi criada uma classe responsável por receber e montar um retorno personalizado
 
 ## Instruções para Executar o Projeto (JAVA ADVANCED)
 
-<<<<<<< HEAD
-1. Faça o clone desse repositório;
-```git clone https://github.com/eduardogdias/java_sprint1.git```
-2. Tenha pelo o Java 17;
-=======
 1. Faça o clone desse repositório (```git clone https://github.com/eduardogdias/java_sprint1.git```);
 2. Tenha pelo menos o Java 17 (o projeto foi desenvolvido usando essa versão);
->>>>>>> 50d5d46541f9b75ed45cbb05b3415d6f5df19fdb
 3. Abra ele em sua IDE de preferência;
 4. Dê um Run na classe "Sprint1Application";
 5. Teste as requisições no Postman/Insomnia.
