@@ -274,31 +274,61 @@ Foi criada uma classe responsável por receber e montar um retorno personalizado
 
 ---
 
-## Instruções para Executar o Projeto (DEVOPS TOOLS And CLOUD COMPUTING)
+## Instruções para Executar o Projeto (DEVOPS TOOLS And CLOUD COMPUTING):
 
-1. No Azure CLI, vamos criar e configurar nossa VM. Digite esses 3 comandos no terminal:
+**1.** No Azure CLI, vamos criar e configurar nossa VM. Digite esses 3 comandos no terminal:
 ````sh
 git clone https://github.com/eduardogdias/java_sprint1.git
 chmod 744 java_sprint1/criar-vm-sprint1-git-nano-docker.sh
 ./java_sprint1/criar-vm-sprint1-git-nano-docker.sh
 ````
+![](images/vmCriada.png)
 
-2. Faça uma conexão SSH com sua VM, digite 'yes' para confiar, e coloque sua senha após isso:
+**2.** Faça uma conexão SSH com sua VM, digite 'yes' para confiar, e coloque sua senha após isso:
 ````sh
 ssh admlnx@IpVM
 ````
 
-3. O Git, Nano e Docker já vieram instalados e configurados pelo script de criação da VM:
-
+**3.** O Git, Nano e Docker já vieram instalados e configurados pelo script de criação da VM:
 ![](images/vmInstalacoes.png)
 
-4. Clone o projeto dentro da VM:
+**4.** Crie a rede para agrupar os dois containers que serão usados:
+````sh
+docker network create sprint1-network
+````
+
+**5.** Clone o projeto dentro da VM:
 ````sh
 git clone https://github.com/eduardogdias/java_sprint1.git
 cd java_sprint1
 ````
 
-5. Crie a rede para agrupar os dois containers que serão usados:
+**6.** Veja que há dois Dockerfiles, que serão usados em cada um dos containers, vamos "buildar" essas imagens:
+![](images/vmDockerfile.png)
 ````sh
-docker network create sprint1-network
+docker build -t image-api .
 ````
+````sh
+docker build -f Dockerfile-insert -t image-curl .
+````
+![](images/vmImgBuildada.png)
+
+**7.** Agora, crie os dois container usando as imagens "buildadas":
+````sh
+docker run -d --name container-api -p 8080:8080 --network sprint1-network image-api
+````
+A partir da execução do código acima, já é possível acessar a API (via Postman, por exemplo) utilizando o IP da VM e a porta 8080.
+O código abaixo executa o container responsável por realizar os inserts em todas as tabelas da API:
+
+````sh
+docker run -it --name container-curl --network sprint1-network image-curl sh
+````
+![](images/vmContainers.png)
+![](images/vmPostman.png)
+
+---
+
+## Excluindo a VM:
+
+![](images/vmRemocao1.png)
+![](images/vmRemocao2.png)
