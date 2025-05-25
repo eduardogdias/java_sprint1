@@ -1,3 +1,6 @@
+**Obs:** Esse repositório foi usado para as entregas das disciplinas: Java e DevOps.
+---
+
 # MottuMap
 
 MottuMap é um projeto desenvolvido com visão computacional e leitura RFID para facilitar a localização e gestão das motos nos páitos da Mottu.
@@ -242,11 +245,16 @@ Foi criada uma classe responsável por receber e montar um retorno personalizado
 
 ---
 
-## Instruções para Executar o Projeto
+## Instruções para Executar o Projeto (JAVA ADVANCED)
 
+<<<<<<< HEAD
 1. Faça o clone desse repositório;
 ```git clone https://github.com/eduardogdias/java_sprint1.git```
 2. Tenha pelo o Java 17;
+=======
+1. Faça o clone desse repositório (```git clone https://github.com/eduardogdias/java_sprint1.git```);
+2. Tenha pelo menos o Java 17 (o projeto foi desenvolvido usando essa versão);
+>>>>>>> 50d5d46541f9b75ed45cbb05b3415d6f5df19fdb
 3. Abra ele em sua IDE de preferência;
 4. Dê um Run na classe "Sprint1Application";
 5. Teste as requisições no Postman/Insomnia.
@@ -263,3 +271,7 @@ Foi criada uma classe responsável por receber e montar um retorno personalizado
 ## Visão Geral do Projeto
 
 ![](images/projeto.png)
+
+---
+
+## Instruções para Executar o Projeto (DEVOPS TOOLS And CLOUD COMPUTING)
