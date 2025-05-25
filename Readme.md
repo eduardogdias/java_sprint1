@@ -276,6 +276,7 @@ git clone https://github.com/eduardogdias/java_sprint1.git
 chmod 744 java_sprint1/criar-vm-sprint1-git-nano-docker.sh
 ./java_sprint1/criar-vm-sprint1-git-nano-docker.sh
 ````
+
 ![](images/vmCriada.png)
 
 **2.** Faça uma conexão SSH com sua VM, digite 'yes' para confiar, e coloque sua senha após isso:
@@ -284,6 +285,7 @@ ssh admlnx@IpVM
 ````
 
 **3.** O Git, Nano e Docker já vieram instalados e configurados pelo script de criação da VM:
+
 ![](images/vmInstalacoes.png)
 
 **4.** Crie a rede para agrupar os dois containers que serão usados:
@@ -298,6 +300,7 @@ cd java_sprint1
 ````
 
 **6.** Veja que há dois Dockerfiles, que serão usados em cada um dos containers, vamos "buildar" essas imagens:
+
 ![](images/vmDockerfile.png)
 ````sh
 docker build -t image-api .
@@ -305,6 +308,7 @@ docker build -t image-api .
 ````sh
 docker build -f Dockerfile-insert -t image-curl .
 ````
+
 ![](images/vmImgBuildada.png)
 
 **7.** Agora, crie os dois container usando as imagens "buildadas":
@@ -317,6 +321,7 @@ O código abaixo executa o container responsável por realizar os inserts em tod
 ````sh
 docker run -it --name container-curl --network sprint1-network image-curl sh
 ````
+
 ![](images/vmContainers.png)
 ![](images/vmPostman.png)
 
