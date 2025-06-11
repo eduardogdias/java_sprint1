@@ -15,12 +15,6 @@ Além disso, para uma identificação ainda mais precisa, o sistema conta com c�
 
 Com isso, é possível acompanhar o histórico de movimentação de cada moto, sabendo por onde ela passou e onde está atualmente.
 
-
-**Integrantes:**
-- Eduardo Guilherme Dias- RM557886
-- Gabriel Alves Thomaz - RM558637
-- Luiz Sadao Kamada - RM557652
-
 ---
 
 ## Especificação do projeto:
