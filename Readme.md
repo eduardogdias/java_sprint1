@@ -319,9 +319,3 @@ docker run -it --name container-curl --network sprint1-network image-curl sh
 ![](images/vmContainers.png)
 ![](images/vmPostman.png)
 
----
-
-## Excluindo a VM:
-
-![](images/vmRemocao1.png)
-![](images/vmRemocao2.png)
